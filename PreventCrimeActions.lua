@@ -113,9 +113,9 @@ local function PCA_ShowCenterMessage(showMessage)
     local params = CENTER_SCREEN_ANNOUNCE:CreateMessageParams(CSA_CATEGORY_SMALL_TEXT)
     
     if showMessage then
-        params:SetText("cFF0000Criminal Skill prevented!|r")
+        params:SetText("|cFF0000Criminal Skill prevented!|r")
     else
-        params:SetText("c00cc00Criminal Skill enabled!|r")
+        params:SetText("|c00cc00Criminal Skill enabled!|r")
     end
 
     params:SetSound(SOUNDS.ABILITY_FAILED)
