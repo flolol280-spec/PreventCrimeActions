@@ -18,11 +18,13 @@ PCA.name = "PreventCrimeActions"
 PCA.showMessageSkillsBlocked = false
 PCA.libSkillBlockerLoaded = false
 PCA.libZoneLoaded = false
+PCA.libGetTextLoaded = false
 PCA.playerActivated = false
 PCA.statusChecked = false --If Player Loaded and LibZone is loaded, then true
 PCA.preventCrime = true 
 PCA.inCombat = false
 PCA.slashcommandDisableFeature = false
+PCA.foundCriminalSkill = false
 PCA.blockedSkillsList = {}  -- List of blocked skill IDs for quick lookup
 PCA.blockedAbilities = {
     ["Spirit Guardian"] = true, 
@@ -91,6 +93,8 @@ end
 
 local function PCA_EnableWhenOutOfCombat()
     
+    if PCA.slashcommandDisableFeature then return end -- Do not execute if feature is disabled by slash command
+
     for id, _ in pairs(PCA.blockedSkillsList) do
         if PCA.blockedSkillsList[id] == true then
             LibSkillBlocker.RegisterSkillBlock("PreventCrimeActions", id, nil, false)
@@ -112,12 +116,9 @@ local function PCA_ShowCenterMessage(showMessage)
 
     local params = CENTER_SCREEN_ANNOUNCE:CreateMessageParams(CSA_CATEGORY_SMALL_TEXT)
     
-    if showMessage then
-        params:SetText("|cFF0000Criminal Skill prevented!|r")
-    else
-        params:SetText("|c00cc00Criminal Skill enabled!|r")
-    end
-
+    if not showMessage then return end --Return, because no Message needed
+         
+    params:SetText("|cFF0000Criminal Skill prevented!|r")
     params:SetSound(SOUNDS.ABILITY_FAILED)
     params:SetLifespanMS(3000) -- 3 seconds
 
@@ -185,17 +186,24 @@ function PCA_InitiRegisterBlockSkills()
     local inPvpOrPvE = inPvpOrPvEZone() -- Check Zone Status once before the loop
     d("PCA: inPvpOrPvEZone: " .. tostring(inPvpOrPvE))
 
+    PCA.foundCriminalSkill = false -- Reset flag before checking skills
+
     for _, abilityId in ipairs(allBars) do
 
-        local abilityName = GetAbilityName(abilityId)
+        local abilityName = GetAbilityName(abilityId) -- Use GetAbilityName for the ability name
+        --We use a hardcoded list of Criminal Skills
+
+        d("PCA: Checking Ability ID: " .. abilityId .. " Name: " .. tostring(abilityName))
 
         if abilityName and PCA_IsAbilityCriminal(abilityName) then
+            PCA.foundCriminalSkill = true
 
             if not inPvpOrPvE then
                 d("PCA: Blocking Criminal Skill: " .. abilityName .. " (ID: " .. abilityId .. ")")
                 LibSkillBlocker.RegisterSkillBlock("PreventCrimeActions", abilityId, nil, false)
                 PCA.blockedSkillsList[abilityId] = true
                 PCA.showMessageSkillsBlocked = true
+                PCA.foundCriminalSkill = true
             else
                 PCA.blockedSkillsList[abilityId] = false
                 PCA.showMessageSkillsBlocked = false
@@ -205,7 +213,10 @@ function PCA_InitiRegisterBlockSkills()
         end
     end
     
-    PCA_ShowCenterMessage(PCA.showMessageSkillsBlocked) -- Show message after checking all skills
+    if PCA.foundCriminalSkill then -- Found a Skill that should be informed about, then show message
+        PCA_ShowCenterMessage(PCA.showMessageSkillsBlocked) -- Show message after checking all skills
+    end
+    
 
 end
 
@@ -224,7 +235,7 @@ local function PCA_RunLibZoneStatus()
 
 
     -- Only run when all are ready
-    if not (PCA.libZoneLoaded and PCA.playerActivated and PCA.libSkillBlockerLoaded) then return end
+    if not (PCA.libZoneLoaded and PCA.playerActivated and PCA.libSkillBlockerLoaded and PCA.libGetTextLoaded) then return end
 
     PCA.statusChecked = true
     
@@ -256,6 +267,10 @@ local function PCA_OnLibraryLoaded(event, addonName)
         
     if addonName == "LibSkillBlocker" then
         PCA.libSkillBlockerLoaded = true
+    end
+
+    if addonName == "LibGetText" then
+        PCA.libGetTextLoaded = true
     end
 
     -- Do not Execute Code, if User has disabled the feature with the slash command, 
