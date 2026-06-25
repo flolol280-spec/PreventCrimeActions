@@ -27,27 +27,102 @@ PCA.slashcommandDisableFeature = false
 PCA.foundCriminalSkill = false
 PCA.blockedSkillsList = {}  -- List of blocked skill IDs for quick lookup
 PCA.blockedAbilities = {
-    ["Spirit Guardian"] = true, 
-    ["Spirit Mender"] = true, 
-    ["Intensive Mender"] = true, 
+    
+    --Necromancer Skills
+        --ENG
+        ["Spirit Guardian"] = true, 
+        ["Spirit Mender"] = true, 
+        ["Intensive Mender"] = true, 
 
-    ["Sacrificial Bones"] = true, 
-    ["Blighted Blastbones"] = true, 
-    ["Grave Lord's Sacrifice"] = true, 
+        ["Sacrificial Bones"] = true, 
+        ["Blighted Blastbones"] = true, 
+        ["Grave Lord's Sacrifice"] = true, 
 
-    ["Frozen Colossus"] = true, 
-    ["Pestilent Colossus"] = true, 
-    ["Glacial Colossus"] = true, 
+        ["Frozen Colossus"] = true, 
+        ["Pestilent Colossus"] = true, 
+        ["Glacial Colossus"] = true, 
 
-    ["Skeletal Mage"] = true, 
-    ["Skeletal Archer"] = true, 
-    ["Skeletal Arcanist"] = true, 
+        ["Skeletal Mage"] = true, 
+        ["Skeletal Archer"] = true, 
+        ["Skeletal Arcanist"] = true, 
 
-    ["Bone Goliath Transformation"] = true, 
-    ["Pummeling Goliath"] = true, 
-    ["Ravenous Goliath"] = true, 
+        ["Bone Goliath Transformation"] = true, 
+        ["Pummeling Goliath"] = true, 
+        ["Ravenous Goliath"] = true, 
 
-    --[] = true, -- Add more criminal skill Names here
+        --GER
+        ["Geistpfleger"] = true, 
+        ["Geisterbeschützer"] = true, 
+        ["Intensivpfleger"] = true, 
+
+        ["Opferknochen"] = true, 
+        ["Verdorbene Sprengknochen"] = true, 
+        ["Opfer des Grabesfürsten"] = true, 
+
+        ["Gefrorener Koloss"] = true, 
+        ["Pestilenzkoloss"] = true, 
+        ["Gletscherkoloss"] = true, 
+
+        ["Skelett-Magier"] = true, 
+        ["Skelett-Schütze"] = true, 
+        ["Skelett-Arkanist"] = true, 
+
+        ["Knochenhüne-Transformation"] = true, 
+        ["Prügelnder Hüne"] = true, 
+        ["Gefräßiger Hüne"] = true,
+
+
+    -- Werewolf Skills, Only Prevent Ulti, because Transformation is allready Criminal 
+        
+        --ENG
+        ["Werewolf Transformation"] = true,
+        ["Pack Leader"] = true, 
+        ["Werewolf Berserker"] = true ,
+
+
+        --GER
+        ["Werwolfverwandlung"] = true,
+        ["Rudelführer"] = true, 
+        ["Werwolfberserker"] = true ,
+
+    --Vampire Skills 
+
+        --ENG
+        ["Blood Scion"] = true,
+        ["Swarming Scion"] = true,
+        ["Perfect Scion"] = true,
+
+        ["Blood Frenzy"] = true,
+        ["Sated Frenzy"] = true,
+        ["Simmering Frenzy"] = true,
+
+        ["Vampiric Drain"] = true,
+        ["Exhilarating Drain"] = true,
+        ["Drain Vigor"] = true,
+
+        ["Mist Form"] = true,
+        ["Elusive Mist"] = true,
+        ["Blood Mist"] = true ,
+        
+        --GER
+        ["Blutspross"] = true,
+        ["Schwärmender Spross"] = true,
+        ["Perfekter Spross"] = true,
+
+        ["Blutraserei"] = true,
+        ["Gesättigte Raserei"] = true,
+        ["Siedende Raserei"] = true,
+
+        ["Vampirisches Entziehen"] = true,
+        ["Belebender Entzug"] = true,
+        ["Elan entziehen"] = true,
+
+        ["Nebelgestalt"] = true,
+        ["Flüchtiger Nebel"] = true,
+        ["Blutnebel"] = true
+
+
+    --[] = true, -- Add more criminal skill Names here , LAST SKILL MUST NOT HAVE A COMMA AT THE END, OTHERWISE LUA WILL THROW AN ERROR
 }
 
 
@@ -335,4 +410,14 @@ SLASH_COMMANDS["/pcaactivate"] = function()
     PCA_RunLibZoneStatus()
     
     d("PCA: Crime Prevention Activated")
+end
+
+
+SLASH_COMMANDS["/pcarefreshbar"] = function()
+    
+
+    --Initiating Register Skill Blocks 
+    PCA_InitiRegisterBlockSkills()
+    
+    d("PCA: Bars Refreshed")
 end
