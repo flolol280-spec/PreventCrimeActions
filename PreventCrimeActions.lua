@@ -26,100 +26,101 @@ PCA.inCombat = false
 PCA.slashcommandDisableFeature = false
 PCA.foundCriminalSkill = false
 PCA.blockedSkillsList = {}  -- List of blocked skill IDs for quick lookup
+PCA.blockedWerwolfSkillsList = {}  -- List of blocked werewolf skill IDs for quick lookup
 PCA.blockedAbilities = {
     
     --Necromancer Skills
         --ENG
-        ["Spirit Guardian"] = true, 
-        ["Spirit Mender"] = true, 
-        ["Intensive Mender"] = true, 
+        ["Spirit Guardian"] = {blocked = true , werewolf = false}, 
+        ["Spirit Mender"] = {blocked = true , werewolf = false}, 
+        ["Intensive Mender"] = {blocked = true , werewolf = false}, 
 
-        ["Sacrificial Bones"] = true, 
-        ["Blighted Blastbones"] = true, 
-        ["Grave Lord's Sacrifice"] = true, 
+        ["Sacrificial Bones"] = {blocked = true , werewolf = false}, 
+        ["Blighted Blastbones"] = {blocked = true , werewolf = false}, 
+        ["Grave Lord's Sacrifice"] = {blocked = true , werewolf = false}, 
 
-        ["Frozen Colossus"] = true, 
-        ["Pestilent Colossus"] = true, 
-        ["Glacial Colossus"] = true, 
+        ["Frozen Colossus"] = {blocked = true , werewolf = false}, 
+        ["Pestilent Colossus"] = {blocked = true , werewolf = false}, 
+        ["Glacial Colossus"] = {blocked = true , werewolf = false}, 
 
-        ["Skeletal Mage"] = true, 
-        ["Skeletal Archer"] = true, 
-        ["Skeletal Arcanist"] = true, 
+        ["Skeletal Mage"] = {blocked = true , werewolf = false}, 
+        ["Skeletal Archer"] = {blocked = true , werewolf = false}, 
+        ["Skeletal Arcanist"] = {blocked = true , werewolf = false}, 
 
-        ["Bone Goliath Transformation"] = true, 
-        ["Pummeling Goliath"] = true, 
-        ["Ravenous Goliath"] = true, 
+        ["Bone Goliath Transformation"] = {blocked = true , werewolf = false}, 
+        ["Pummeling Goliath"] = {blocked = true , werewolf = false}, 
+        ["Ravenous Goliath"] = {blocked = true , werewolf = false}, 
 
         --GER
-        ["Geistpfleger"] = true, 
-        ["Geisterbeschützer"] = true, 
-        ["Intensivpfleger"] = true, 
+        ["Geistpfleger"] = {blocked = true , werewolf = false}, 
+        ["Geisterbeschützer"] = {blocked = true , werewolf = false}, 
+        ["Intensivpfleger"] = {blocked = true , werewolf = false}, 
 
-        ["Opferknochen"] = true, 
-        ["Verdorbene Sprengknochen"] = true, 
-        ["Opfer des Grabesfürsten"] = true, 
+        ["Opferknochen"] = {blocked = true , werewolf = false}, 
+        ["Verdorbene Sprengknochen"] = {blocked = true , werewolf = false}, 
+        ["Opfer des Grabesfürsten"] = {blocked = true , werewolf = false}, 
 
-        ["Gefrorener Koloss"] = true, 
-        ["Pestilenzkoloss"] = true, 
-        ["Gletscherkoloss"] = true, 
+        ["Gefrorener Koloss"] = {blocked = true , werewolf = false}, 
+        ["Pestilenzkoloss"] = {blocked = true , werewolf = false}, 
+        ["Gletscherkoloss"] = {blocked = true , werewolf = false}, 
 
-        ["Skelett-Magier"] = true, 
-        ["Skelett-Schütze"] = true, 
-        ["Skelett-Arkanist"] = true, 
+        ["Skelett-Magier"] = {blocked = true , werewolf = false}, 
+        ["Skelett-Schütze"] = {blocked = true , werewolf = false}, 
+        ["Skelett-Arkanist"] = {blocked = true , werewolf = false}, 
 
-        ["Knochenhüne-Transformation"] = true, 
-        ["Prügelnder Hüne"] = true, 
-        ["Gefräßiger Hüne"] = true,
+        ["Knochenhüne-Transformation"] = {blocked = true , werewolf = false}, 
+        ["Prügelnder Hüne"] = {blocked = true , werewolf = false}, 
+        ["Gefräßiger Hüne"] = {blocked = true , werewolf = false},
 
 
     -- Werewolf Skills, Only Prevent Ulti, because Transformation is allready Criminal 
         
         --ENG
-        ["Werewolf Transformation"] = true,
-        ["Pack Leader"] = true, 
-        ["Werewolf Berserker"] = true ,
+        ["Werewolf Transformation"] = {blocked = true , werewolf = true},
+        ["Pack Leader"] = {blocked = true , werewolf = true}, 
+        ["Werewolf Berserker"] = {blocked = true , werewolf = true},
 
 
         --GER
-        ["Werwolfverwandlung"] = true,
-        ["Rudelführer"] = true, 
-        ["Werwolfberserker"] = true ,
+        ["Werwolfverwandlung"] = {blocked = true , werewolf = true},
+        ["Rudelführer"] = {blocked = true , werewolf = true}, 
+        ["Werwolfberserker"] = {blocked = true , werewolf = true},
 
     --Vampire Skills 
 
         --ENG
-        ["Blood Scion"] = true,
-        ["Swarming Scion"] = true,
-        ["Perfect Scion"] = true,
+        ["Blood Scion"] = {blocked = true , werewolf = false},
+        ["Swarming Scion"] = {blocked = true , werewolf = false},
+        ["Perfect Scion"] = {blocked = true , werewolf = false},
 
-        ["Blood Frenzy"] = true,
-        ["Sated Frenzy"] = true,
-        ["Simmering Frenzy"] = true,
+        ["Blood Frenzy"] = {blocked = true , werewolf = false},
+        ["Sated Frenzy"] = {blocked = true , werewolf = false},
+        ["Simmering Frenzy"] = {blocked = true , werewolf = false},
 
-        ["Vampiric Drain"] = true,
-        ["Exhilarating Drain"] = true,
-        ["Drain Vigor"] = true,
+        ["Vampiric Drain"] = {blocked = true , werewolf = false},
+        ["Exhilarating Drain"] = {blocked = true , werewolf = false},
+        ["Drain Vigor"] = {blocked = true , werewolf = false},
 
-        ["Mist Form"] = true,
-        ["Elusive Mist"] = true,
-        ["Blood Mist"] = true ,
+        ["Mist Form"] = {blocked = true , werewolf = false},
+        ["Elusive Mist"] = {blocked = true , werewolf = false},
+        ["Blood Mist"] = {blocked = true , werewolf = false} ,
         
         --GER
-        ["Blutspross"] = true,
-        ["Schwärmender Spross"] = true,
-        ["Perfekter Spross"] = true,
+        ["Blutspross"] = {blocked = true , werewolf = false},
+        ["Schwärmender Spross"] = {blocked = true , werewolf = false},
+        ["Perfekter Spross"] = {blocked = true , werewolf = false},
 
-        ["Blutraserei"] = true,
-        ["Gesättigte Raserei"] = true,
-        ["Siedende Raserei"] = true,
+        ["Blutraserei"] = {blocked = true , werewolf = false},
+        ["Gesättigte Raserei"] = {blocked = true , werewolf = false},
+        ["Siedende Raserei"] = {blocked = true , werewolf = false},
 
-        ["Vampirisches Entziehen"] = true,
-        ["Belebender Entzug"] = true,
-        ["Elan entziehen"] = true,
+        ["Vampirisches Entziehen"] = {blocked = true , werewolf = false},
+        ["Belebender Entzug"] = {blocked = true , werewolf = false},
+        ["Elan entziehen"] = {blocked = true , werewolf = false},
 
-        ["Nebelgestalt"] = true,
-        ["Flüchtiger Nebel"] = true,
-        ["Blutnebel"] = true
+        ["Nebelgestalt"] = {blocked = true , werewolf = false},
+        ["Flüchtiger Nebel"] = {blocked = true , werewolf = false},
+        ["Blutnebel"] = {blocked = true , werewolf = false}
 
 
     --[] = true, -- Add more criminal skill Names here , LAST SKILL MUST NOT HAVE A COMMA AT THE END, OTHERWISE LUA WILL THROW AN ERROR
@@ -151,10 +152,31 @@ local function inPvpOrPvEZone()
     
 end
 
+local function CleanAbilityName(name)
+    return name:gsub("%^%a+", "")
+end
 
 local function PCA_IsAbilityCriminal(abilityName)
     --Check ID with Blocked List 
-    return PCA.blockedAbilities[abilityName] == true
+
+    abilityName = CleanAbilityName(abilityName) -- Clean the ability name to remove any formatting codes
+    if PCA.blockedAbilities[abilityName] and PCA.blockedAbilities[abilityName].blocked == true then
+        return true
+    else
+        return false
+    end
+
+end
+
+local function PCA_IsAbilityWerewolf(abilityName)
+    --Check ID with Blocked List 
+
+    abilityName = CleanAbilityName(abilityName) -- Clean the ability name to remove any formatting codes
+    if PCA.blockedAbilities[abilityName] and PCA.blockedAbilities[abilityName].werewolf == true then
+        return true
+    else
+        return false
+    end
 end
 
 
@@ -165,6 +187,29 @@ local function PCA_DisableWhenInCombat()
     end
 
 end
+
+
+local function PCA_DisableWerewolfRestriction()
+    for id, _ in pairs(PCA.blockedWerwolfSkillsList) do
+        LibSkillBlocker.UnregisterSkillBlock("PreventCrimeActions", id)
+    end
+end
+
+local function PCA_EnableWerewolfRestriction()
+    for id, _ in pairs(PCA.blockedWerwolfSkillsList) do
+        LibSkillBlocker.RegisterSkillBlock("PreventCrimeActions", id, nil, false)
+    end
+end
+
+
+-- For Werewolf Transformation , we need to listen for the effect change event to re-enable the restriction when the player leaves Werewolf form
+local function OnEffectChanged(_, changeType,_,effectName)
+    if effectName == "De-Werewolf" and changeType == EFFECT_RESULT_FADED then
+        d("Player left Werewolf form, enable Restriction Again")
+        PCA_EnableWerewolfRestriction()
+    end
+end
+
 
 local function PCA_EnableWhenOutOfCombat()
     
@@ -277,6 +322,12 @@ function PCA_InitiRegisterBlockSkills()
                 d("PCA: Blocking Criminal Skill: " .. abilityName .. " (ID: " .. abilityId .. ")")
                 LibSkillBlocker.RegisterSkillBlock("PreventCrimeActions", abilityId, nil, false)
                 PCA.blockedSkillsList[abilityId] = true
+                
+                if PCA_IsAbilityWerewolf(abilityName) then
+                    d("PCA: This is a Werewolf Skill, Blocking it as well.")
+                    PCA.blockedWerwolfSkillsList[abilityId] = true
+                end
+
                 PCA.showMessageSkillsBlocked = true
                 PCA.foundCriminalSkill = true
             else
@@ -383,11 +434,23 @@ EVENT_MANAGER:RegisterForEvent("PCA", EVENT_PLAYER_COMBAT_STATE, function(_, inC
         PCA_DisableWhenInCombat() -- Disable Crime Prevention in Combat
     else
         PCA_EnableWhenOutOfCombat() -- Enable Crime Prevention outside of Combat    
+
+        if IsPlayerInWerewolfForm() then
+            d("PCA: Player is in Werewolf Form After Combat")
+            PCA_DisableWerewolfRestriction() -- Disable Werewolf Restriction after Combat, because Player is in Werewolf Form
+            
+        else
+            d("PCA: Player is NOT in Werewolf Form, After Combat")
+            
+        end   
     end
 
     -- NEED to run 
 
 end)
+
+
+EVENT_MANAGER:RegisterForEvent("PCA_EffectChanged", EVENT_EFFECT_CHANGED, OnEffectChanged)
 
 
 ------------------------------------------------------------
