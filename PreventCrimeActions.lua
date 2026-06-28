@@ -123,7 +123,7 @@ PCA.blockedAbilities = {
         ["Blutnebel"] = {blocked = true , werewolf = false}
 
 
-    --[] = true, -- Add more criminal skill Names here , LAST SKILL MUST NOT HAVE A COMMA AT THE END, OTHERWISE LUA WILL THROW AN ERROR
+    --[] = {blocked = true , werewolf = false},, -- Add more criminal skill Names here , LAST SKILL MUST NOT HAVE A COMMA AT THE END, OTHERWISE LUA WILL THROW AN ERROR
 }
 
 
@@ -137,7 +137,7 @@ local function inPvpOrPvEZone()
     local pvp, delve, pub, groupDungeon, raid =
         LibZone:GetCurrentZoneAndGroupStatus()
 
-
+    --[[
     d("========== PCA LibZone Status ==========")
     d("PVP: " .. tostring(pvp))
     d("Delve: " .. tostring(delve))
@@ -147,6 +147,8 @@ local function inPvpOrPvEZone()
     d("In Group: " .. tostring(inGroup))
     d("Group Size: " .. tostring(groupSize))
     d("========================================")
+    ]]
+    
         
     return (pvp or delve or pub or groupDungeon or raid)
     
@@ -205,7 +207,7 @@ end
 -- For Werewolf Transformation , we need to listen for the effect change event to re-enable the restriction when the player leaves Werewolf form
 local function OnEffectChanged(_, changeType,_,effectName)
     if effectName == "De-Werewolf" and changeType == EFFECT_RESULT_FADED then
-        d("Player left Werewolf form, enable Restriction Again")
+        --d("Player left Werewolf form, enable Restriction Again")
         PCA_EnableWerewolfRestriction()
     end
 end
@@ -285,7 +287,7 @@ end
 
 function PCA_InitiRegisterBlockSkills()
 
-    d("PCA: Initiating Skill Block Registration...")
+    --d("PCA: Initiating Skill Block Registration...")
 
     
     --[[]]
@@ -294,17 +296,17 @@ function PCA_InitiRegisterBlockSkills()
     local frontBar = GetBarAbilityIds(HOTBAR_CATEGORY_PRIMARY)
     local backBar  = GetBarAbilityIds(HOTBAR_CATEGORY_BACKUP)
 
-    d("PCA: Having both Bars")
+    --d("PCA: Having both Bars")
 
     -- Merge both bars
     local allBars = {}
     for _, id in ipairs(frontBar) do table.insert(allBars, id) end
     for _, id in ipairs(backBar) do table.insert(allBars, id) end
 
-    d("PCA: Merged Both Bars, Total Abilities: " .. tostring(#allBars))
+    --d("PCA: Merged Both Bars, Total Abilities: " .. tostring(#allBars))
 
     local inPvpOrPvE = inPvpOrPvEZone() -- Check Zone Status once before the loop
-    d("PCA: inPvpOrPvEZone: " .. tostring(inPvpOrPvE))
+    --d("PCA: inPvpOrPvEZone: " .. tostring(inPvpOrPvE))
 
     PCA.foundCriminalSkill = false -- Reset flag before checking skills
 
@@ -313,18 +315,18 @@ function PCA_InitiRegisterBlockSkills()
         local abilityName = GetAbilityName(abilityId) -- Use GetAbilityName for the ability name
         --We use a hardcoded list of Criminal Skills
 
-        d("PCA: Checking Ability ID: " .. abilityId .. " Name: " .. tostring(abilityName))
+        --d("PCA: Checking Ability ID: " .. abilityId .. " Name: " .. tostring(abilityName))
 
         if abilityName and PCA_IsAbilityCriminal(abilityName) then
             PCA.foundCriminalSkill = true
 
             if not inPvpOrPvE then
-                d("PCA: Blocking Criminal Skill: " .. abilityName .. " (ID: " .. abilityId .. ")")
+                --d("PCA: Blocking Criminal Skill: " .. abilityName .. " (ID: " .. abilityId .. ")")
                 LibSkillBlocker.RegisterSkillBlock("PreventCrimeActions", abilityId, nil, false)
                 PCA.blockedSkillsList[abilityId] = true
                 
                 if PCA_IsAbilityWerewolf(abilityName) then
-                    d("PCA: This is a Werewolf Skill, Blocking it as well.")
+                    --d("PCA: This is a Werewolf Skill, Blocking it as well.")
                     PCA.blockedWerwolfSkillsList[abilityId] = true
                 end
 
@@ -333,7 +335,7 @@ function PCA_InitiRegisterBlockSkills()
             else
                 PCA.blockedSkillsList[abilityId] = false
                 PCA.showMessageSkillsBlocked = false
-                d("PCA: Not Blocking Criminal Skill in PvP/PVE Zone: " .. abilityName .. " (ID: " .. abilityId .. ")")
+                --d("PCA: Not Blocking Criminal Skill in PvP/PVE Zone: " .. abilityName .. " (ID: " .. abilityId .. ")")
                 LibSkillBlocker.UnregisterSkillBlock("PreventCrimeActions", abilityId)
             end
         end
@@ -355,7 +357,7 @@ end
 ------------------------------------------------------------
 local function PCA_RunLibZoneStatus()
     
-    d("PCA: Running LibZone Status Check...")
+    --d("PCA: Running LibZone Status Check...")
     -- Prevent multiple runs
     --if PCA.statusChecked then return end
 
@@ -377,7 +379,7 @@ local function PCA_OnPlayerActivated()
 
     -- Do not Execute Code, if User has disabled the feature with the slash command, 
     if not PCA.preventCrime then
-        d("PCA: Crime Prevention Feature is disabled by slash command.")
+        --d("PCA: Crime Prevention Feature is disabled by slash command.")
         return
     end
     PCA_RunLibZoneStatus()
@@ -401,7 +403,7 @@ local function PCA_OnLibraryLoaded(event, addonName)
 
     -- Do not Execute Code, if User has disabled the feature with the slash command, 
     if not PCA.preventCrime then
-        d("PCA: Crime Prevention Feature is disabled by slash command.")
+        --d("PCA: Crime Prevention Feature is disabled by slash command.")
         return
     end
 
@@ -436,11 +438,11 @@ EVENT_MANAGER:RegisterForEvent("PCA", EVENT_PLAYER_COMBAT_STATE, function(_, inC
         PCA_EnableWhenOutOfCombat() -- Enable Crime Prevention outside of Combat    
 
         if IsPlayerInWerewolfForm() then
-            d("PCA: Player is in Werewolf Form After Combat")
+            --d("PCA: Player is in Werewolf Form After Combat")
             PCA_DisableWerewolfRestriction() -- Disable Werewolf Restriction after Combat, because Player is in Werewolf Form
             
         else
-            d("PCA: Player is NOT in Werewolf Form, After Combat")
+            --d("PCA: Player is NOT in Werewolf Form, After Combat")
             
         end   
     end
