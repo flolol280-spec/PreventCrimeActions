@@ -435,6 +435,10 @@ EVENT_MANAGER:RegisterForEvent("PCA", EVENT_PLAYER_COMBAT_STATE, function(_, inC
     if PCA.inCombat then
         PCA_DisableWhenInCombat() -- Disable Crime Prevention in Combat
     else
+        if not PCA.preventCrime then
+            return
+        end
+        
         PCA_EnableWhenOutOfCombat() -- Enable Crime Prevention outside of Combat    
 
         if IsPlayerInWerewolfForm() then
